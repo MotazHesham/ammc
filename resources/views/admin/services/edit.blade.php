@@ -1,73 +1,78 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('global.edit') }} {{ trans('cruds.service.title_singular') }}
-                </div>
-                <div class="panel-body">
-                    <form method="POST" action="{{ route("admin.services.update", [$service->id]) }}" enctype="multipart/form-data">
-                        @method('PUT')
-                        @csrf
-                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                            <label class="required" for="name">{{ trans('cruds.service.fields.name') }}</label>
-                            <input class="form-control" type="text" name="name" id="name" value="{{ old('name', $service->name) }}" required>
-                            @if($errors->has('name'))
-                                <span class="help-block" role="alert">{{ $errors->first('name') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.service.fields.name_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('photo') ? 'has-error' : '' }}">
-                            <label class="required" for="photo">{{ trans('cruds.service.fields.photo') }}</label>
-                            <div class="needsclick dropzone" id="photo-dropzone">
-                            </div>
-                            @if($errors->has('photo'))
-                                <span class="help-block" role="alert">{{ $errors->first('photo') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.service.fields.photo_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('icon') ? 'has-error' : '' }}">
-                            <label class="required" for="icon">{{ trans('cruds.service.fields.icon') }}</label>
-                            <div class="needsclick dropzone" id="icon-dropzone">
-                            </div>
-                            @if($errors->has('icon'))
-                                <span class="help-block" role="alert">{{ $errors->first('icon') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.service.fields.icon_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
-                            <label for="description">{{ trans('cruds.service.fields.description') }}</label>
-                            <textarea class="form-control" name="description" id="description">{{ old('description', $service->description) }}</textarea>
-                            @if($errors->has('description'))
-                                <span class="help-block" role="alert">{{ $errors->first('description') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.service.fields.description_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('points') ? 'has-error' : '' }}">
-                            <label class="required" for="points">{{ trans('cruds.service.fields.points') }}</label>
-                            <textarea class="form-control" name="points" id="points" required>{{ old('points', $service->points) }}</textarea>
-                            @if($errors->has('points'))
-                                <span class="help-block" role="alert">{{ $errors->first('points') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.service.fields.points_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-danger" type="submit">
-                                {{ trans('global.save') }}
-                            </button>
-                        </div>
-                    </form>
-                </div>
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.edit') }} {{ trans('cruds.service.title_singular') }}
+    </div>
+
+    <div class="card-body">
+        <form method="POST" action="{{ route("admin.services.update", [$service->id]) }}" enctype="multipart/form-data">
+            @method('PUT')
+            @csrf
+            <div class="form-group">
+                <label class="required" for="name">{{ trans('cruds.service.fields.name') }}</label>
+                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $service->name) }}" required>
+                @if($errors->has('name'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.service.fields.name_helper') }}</span>
             </div>
-
-
-
-        </div>
+            <div class="form-group">
+                <label class="required" for="photo">{{ trans('cruds.service.fields.photo') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('photo') ? 'is-invalid' : '' }}" id="photo-dropzone">
+                </div>
+                @if($errors->has('photo'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('photo') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.service.fields.photo_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="icon">{{ trans('cruds.service.fields.icon') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('icon') ? 'is-invalid' : '' }}" id="icon-dropzone">
+                </div>
+                @if($errors->has('icon'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('icon') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.service.fields.icon_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="description">{{ trans('cruds.service.fields.description') }}</label>
+                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $service->description) }}</textarea>
+                @if($errors->has('description'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('description') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.service.fields.description_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="points">{{ trans('cruds.service.fields.points') }}</label>
+                <textarea class="form-control {{ $errors->has('points') ? 'is-invalid' : '' }}" name="points" id="points" required>{{ old('points', $service->points) }}</textarea>
+                @if($errors->has('points'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('points') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.service.fields.points_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-danger" type="submit">
+                    {{ trans('global.save') }}
+                </button>
+            </div>
+        </form>
     </div>
 </div>
+
+
+
 @endsection
 
 @section('scripts')

@@ -6,18 +6,36 @@ $(document).ready(function () {
   })
 
   $('.date').datetimepicker({
-    format: 'MM/DD/YYYY',
-    locale: 'en'
+    format: 'DD/MM/YYYY',
+    locale: 'en',
+    icons: {
+      up: 'fas fa-chevron-up',
+      down: 'fas fa-chevron-down',
+      previous: 'fas fa-chevron-left',
+      next: 'fas fa-chevron-right'
+    }
   })
 
   $('.datetime').datetimepicker({
-    format: 'MM/DD/YYYY HH:mm:ss',
+    format: 'DD/MM/YYYY HH:mm:ss',
     locale: 'en',
-    sideBySide: true
+    sideBySide: true,
+    icons: {
+      up: 'fas fa-chevron-up',
+      down: 'fas fa-chevron-down',
+      previous: 'fas fa-chevron-left',
+      next: 'fas fa-chevron-right'
+    }
   })
 
   $('.timepicker').datetimepicker({
-    format: 'HH:mm:ss'
+    format: 'HH:mm:ss',
+    icons: {
+      up: 'fas fa-chevron-up',
+      down: 'fas fa-chevron-down',
+      previous: 'fas fa-chevron-left',
+      next: 'fas fa-chevron-right'
+    }
   })
 
   $('.select-all').click(function () {
@@ -45,9 +63,12 @@ $(document).ready(function () {
     }
   })
 
-  $('a[data-toggle^="push-menu"]').click(function () {
-    setTimeout(function() {
+  $('.c-header-toggler.mfs-3.d-md-down-none').click(function (e) {
+    $('#sidebar').toggleClass('c-sidebar-lg-show');
+
+    setTimeout(function () {
       $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
-    }, 350);
-  })
+    }, 400);
+  });
+
 })

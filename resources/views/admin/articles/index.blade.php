@@ -1,116 +1,111 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
-    @can('article_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.articles.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.article.title_singular') }}
-                </a>
-            </div>
-        </div>
-    @endcan
-    <div class="row">
+@can('article_create')
+    <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('cruds.article.title_singular') }} {{ trans('global.list') }}
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-Article">
-                            <thead>
-                                <tr>
-                                    <th width="10">
+            <a class="btn btn-success" href="{{ route('admin.articles.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.article.title_singular') }}
+            </a>
+        </div>
+    </div>
+@endcan
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.article.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.article.fields.id') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.article.fields.title') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.article.fields.written') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.article.fields.short_description') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.article.fields.photo') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.article.fields.status') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($articles as $key => $article)
-                                    <tr data-entry-id="{{ $article->id }}">
-                                        <td>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-Article">
+                <thead>
+                    <tr>
+                        <th width="10">
 
-                                        </td>
-                                        <td>
-                                            {{ $article->id ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $article->title ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $article->written ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $article->short_description ?? '' }}
-                                        </td>
-                                        <td>
-                                            @if($article->photo)
-                                                <a href="{{ $article->photo->getUrl() }}" target="_blank" style="display: inline-block">
-                                                    <img src="{{ $article->photo->getUrl('thumb') }}">
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ App\Models\Article::STATUS_RADIO[$article->status] ?? '' }}
-                                        </td>
-                                        <td>
-                                            @can('article_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.articles.show', $article->id) }}">
-                                                    {{ trans('global.view') }}
-                                                </a>
-                                            @endcan
+                        </th>
+                        <th>
+                            {{ trans('cruds.article.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.article.fields.title') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.article.fields.written') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.article.fields.short_description') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.article.fields.photo') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.article.fields.status') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($articles as $key => $article)
+                        <tr data-entry-id="{{ $article->id }}">
+                            <td>
 
-                                            @can('article_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('admin.articles.edit', $article->id) }}">
-                                                    {{ trans('global.edit') }}
-                                                </a>
-                                            @endcan
+                            </td>
+                            <td>
+                                {{ $article->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $article->title ?? '' }}
+                            </td>
+                            <td>
+                                {{ $article->written ?? '' }}
+                            </td>
+                            <td>
+                                {{ $article->short_description ?? '' }}
+                            </td>
+                            <td>
+                                @if($article->photo)
+                                    <a href="{{ $article->photo->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $article->photo->getUrl('thumb') }}">
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
+                                {{ App\Models\Article::STATUS_RADIO[$article->status] ?? '' }}
+                            </td>
+                            <td>
+                                @can('article_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.articles.show', $article->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
 
-                                            @can('article_delete')
-                                                <form action="{{ route('admin.articles.destroy', $article->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                                </form>
-                                            @endcan
+                                @can('article_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.articles.edit', $article->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
 
-                                        </td>
+                                @can('article_delete')
+                                    <form action="{{ route('admin.articles.destroy', $article->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                            </td>
 
-
-
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+
+
 @endsection
 @section('scripts')
 @parent

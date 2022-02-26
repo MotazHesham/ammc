@@ -1,84 +1,91 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('global.create') }} {{ trans('cruds.news.title_singular') }}
-                </div>
-                <div class="panel-body">
-                    <form method="POST" action="{{ route("admin.newss.store") }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
-                            <label class="required" for="title">{{ trans('cruds.news.fields.title') }}</label>
-                            <input class="form-control" type="text" name="title" id="title" value="{{ old('title', '') }}" required>
-                            @if($errors->has('title'))
-                                <span class="help-block" role="alert">{{ $errors->first('title') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.news.fields.title_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('date') ? 'has-error' : '' }}">
-                            <label class="required" for="date">{{ trans('cruds.news.fields.date') }}</label>
-                            <input class="form-control date" type="text" name="date" id="date" value="{{ old('date') }}" required>
-                            @if($errors->has('date'))
-                                <span class="help-block" role="alert">{{ $errors->first('date') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.news.fields.date_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('short_description') ? 'has-error' : '' }}">
-                            <label class="required" for="short_description">{{ trans('cruds.news.fields.short_description') }}</label>
-                            <input class="form-control" type="text" name="short_description" id="short_description" value="{{ old('short_description', '') }}" required>
-                            @if($errors->has('short_description'))
-                                <span class="help-block" role="alert">{{ $errors->first('short_description') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.news.fields.short_description_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('long_description') ? 'has-error' : '' }}">
-                            <label class="required" for="long_description">{{ trans('cruds.news.fields.long_description') }}</label>
-                            <textarea class="form-control" name="long_description" id="long_description" required>{{ old('long_description') }}</textarea>
-                            @if($errors->has('long_description'))
-                                <span class="help-block" role="alert">{{ $errors->first('long_description') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.news.fields.long_description_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('photo') ? 'has-error' : '' }}">
-                            <label class="required" for="photo">{{ trans('cruds.news.fields.photo') }}</label>
-                            <div class="needsclick dropzone" id="photo-dropzone">
-                            </div>
-                            @if($errors->has('photo'))
-                                <span class="help-block" role="alert">{{ $errors->first('photo') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.news.fields.photo_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
-                            <label>{{ trans('cruds.news.fields.status') }}</label>
-                            @foreach(App\Models\News::STATUS_RADIO as $key => $label)
-                                <div>
-                                    <input type="radio" id="status_{{ $key }}" name="status" value="{{ $key }}" {{ old('status', '1') === (string) $key ? 'checked' : '' }}>
-                                    <label for="status_{{ $key }}" style="font-weight: 400">{{ $label }}</label>
-                                </div>
-                            @endforeach
-                            @if($errors->has('status'))
-                                <span class="help-block" role="alert">{{ $errors->first('status') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.news.fields.status_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-danger" type="submit">
-                                {{ trans('global.save') }}
-                            </button>
-                        </div>
-                    </form>
-                </div>
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.create') }} {{ trans('cruds.news.title_singular') }}
+    </div>
+
+    <div class="card-body">
+        <form method="POST" action="{{ route("admin.newss.store") }}" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label class="required" for="title">{{ trans('cruds.news.fields.title') }}</label>
+                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', '') }}" required>
+                @if($errors->has('title'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('title') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.news.fields.title_helper') }}</span>
             </div>
-
-
-
-        </div>
+            <div class="form-group">
+                <label class="required" for="date">{{ trans('cruds.news.fields.date') }}</label>
+                <input class="form-control date {{ $errors->has('date') ? 'is-invalid' : '' }}" type="text" name="date" id="date" value="{{ old('date') }}" required>
+                @if($errors->has('date'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('date') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.news.fields.date_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="short_description">{{ trans('cruds.news.fields.short_description') }}</label>
+                <input class="form-control {{ $errors->has('short_description') ? 'is-invalid' : '' }}" type="text" name="short_description" id="short_description" value="{{ old('short_description', '') }}" required>
+                @if($errors->has('short_description'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('short_description') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.news.fields.short_description_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="long_description">{{ trans('cruds.news.fields.long_description') }}</label>
+                <textarea class="form-control {{ $errors->has('long_description') ? 'is-invalid' : '' }}" name="long_description" id="long_description" required>{{ old('long_description') }}</textarea>
+                @if($errors->has('long_description'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('long_description') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.news.fields.long_description_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="photo">{{ trans('cruds.news.fields.photo') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('photo') ? 'is-invalid' : '' }}" id="photo-dropzone">
+                </div>
+                @if($errors->has('photo'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('photo') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.news.fields.photo_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label>{{ trans('cruds.news.fields.status') }}</label>
+                @foreach(App\Models\News::STATUS_RADIO as $key => $label)
+                    <div class="form-check {{ $errors->has('status') ? 'is-invalid' : '' }}">
+                        <input class="form-check-input" type="radio" id="status_{{ $key }}" name="status" value="{{ $key }}" {{ old('status', '1') === (string) $key ? 'checked' : '' }}>
+                        <label class="form-check-label" for="status_{{ $key }}">{{ $label }}</label>
+                    </div>
+                @endforeach
+                @if($errors->has('status'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.news.fields.status_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-danger" type="submit">
+                    {{ trans('global.save') }}
+                </button>
+            </div>
+        </form>
     </div>
 </div>
+
+
+
 @endsection
 
 @section('scripts')

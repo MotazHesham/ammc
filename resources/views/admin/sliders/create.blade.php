@@ -1,68 +1,71 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('global.create') }} {{ trans('cruds.slider.title_singular') }}
-                </div>
-                <div class="panel-body">
-                    <form method="POST" action="{{ route("admin.sliders.store") }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
-                            <label for="title">{{ trans('cruds.slider.fields.title') }}</label>
-                            <input class="form-control" type="text" name="title" id="title" value="{{ old('title', '') }}">
-                            @if($errors->has('title'))
-                                <span class="help-block" role="alert">{{ $errors->first('title') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.slider.fields.title_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
-                            <label for="description">{{ trans('cruds.slider.fields.description') }}</label>
-                            <input class="form-control" type="text" name="description" id="description" value="{{ old('description', '') }}">
-                            @if($errors->has('description'))
-                                <span class="help-block" role="alert">{{ $errors->first('description') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.slider.fields.description_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('photo') ? 'has-error' : '' }}">
-                            <label class="required" for="photo">{{ trans('cruds.slider.fields.photo') }}</label>
-                            <div class="needsclick dropzone" id="photo-dropzone">
-                            </div>
-                            @if($errors->has('photo'))
-                                <span class="help-block" role="alert">{{ $errors->first('photo') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.slider.fields.photo_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
-                            <label class="required">{{ trans('cruds.slider.fields.status') }}</label>
-                            @foreach(App\Models\Slider::STATUS_RADIO as $key => $label)
-                                <div>
-                                    <input type="radio" id="status_{{ $key }}" name="status" value="{{ $key }}" {{ old('status', '1') === (string) $key ? 'checked' : '' }} required>
-                                    <label for="status_{{ $key }}" style="font-weight: 400">{{ $label }}</label>
-                                </div>
-                            @endforeach
-                            @if($errors->has('status'))
-                                <span class="help-block" role="alert">{{ $errors->first('status') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.slider.fields.status_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-danger" type="submit">
-                                {{ trans('global.save') }}
-                            </button>
-                        </div>
-                    </form>
-                </div>
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.create') }} {{ trans('cruds.slider.title_singular') }}
+    </div>
+
+    <div class="card-body">
+        <form method="POST" action="{{ route("admin.sliders.store") }}" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="title">{{ trans('cruds.slider.fields.title') }}</label>
+                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', '') }}">
+                @if($errors->has('title'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('title') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.slider.fields.title_helper') }}</span>
             </div>
-
-
-
-        </div>
+            <div class="form-group">
+                <label for="description">{{ trans('cruds.slider.fields.description') }}</label>
+                <input class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" type="text" name="description" id="description" value="{{ old('description', '') }}">
+                @if($errors->has('description'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('description') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.slider.fields.description_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="photo">{{ trans('cruds.slider.fields.photo') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('photo') ? 'is-invalid' : '' }}" id="photo-dropzone">
+                </div>
+                @if($errors->has('photo'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('photo') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.slider.fields.photo_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required">{{ trans('cruds.slider.fields.status') }}</label>
+                @foreach(App\Models\Slider::STATUS_RADIO as $key => $label)
+                    <div class="form-check {{ $errors->has('status') ? 'is-invalid' : '' }}">
+                        <input class="form-check-input" type="radio" id="status_{{ $key }}" name="status" value="{{ $key }}" {{ old('status', '1') === (string) $key ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="status_{{ $key }}">{{ $label }}</label>
+                    </div>
+                @endforeach
+                @if($errors->has('status'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.slider.fields.status_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-danger" type="submit">
+                    {{ trans('global.save') }}
+                </button>
+            </div>
+        </form>
     </div>
 </div>
+
+
+
 @endsection
 
 @section('scripts')

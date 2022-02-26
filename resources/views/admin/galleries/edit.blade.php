@@ -1,48 +1,47 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('global.edit') }} {{ trans('cruds.gallery.title_singular') }}
-                </div>
-                <div class="panel-body">
-                    <form method="POST" action="{{ route("admin.galleries.update", [$gallery->id]) }}" enctype="multipart/form-data">
-                        @method('PUT')
-                        @csrf
-                        <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
-                            <label class="required" for="title">{{ trans('cruds.gallery.fields.title') }}</label>
-                            <input class="form-control" type="text" name="title" id="title" value="{{ old('title', $gallery->title) }}" required>
-                            @if($errors->has('title'))
-                                <span class="help-block" role="alert">{{ $errors->first('title') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.gallery.fields.title_helper') }}</span>
-                        </div>
-                        <div class="form-group {{ $errors->has('photo') ? 'has-error' : '' }}">
-                            <label for="photo">{{ trans('cruds.gallery.fields.photo') }}</label>
-                            <div class="needsclick dropzone" id="photo-dropzone">
-                            </div>
-                            @if($errors->has('photo'))
-                                <span class="help-block" role="alert">{{ $errors->first('photo') }}</span>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.gallery.fields.photo_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-danger" type="submit">
-                                {{ trans('global.save') }}
-                            </button>
-                        </div>
-                    </form>
-                </div>
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.edit') }} {{ trans('cruds.gallery.title_singular') }}
+    </div>
+
+    <div class="card-body">
+        <form method="POST" action="{{ route("admin.galleries.update", [$gallery->id]) }}" enctype="multipart/form-data">
+            @method('PUT')
+            @csrf
+            <div class="form-group">
+                <label class="required" for="title">{{ trans('cruds.gallery.fields.title') }}</label>
+                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', $gallery->title) }}" required>
+                @if($errors->has('title'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('title') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.gallery.fields.title_helper') }}</span>
             </div>
-
-
-
-        </div>
+            <div class="form-group">
+                <label for="photo">{{ trans('cruds.gallery.fields.photo') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('photo') ? 'is-invalid' : '' }}" id="photo-dropzone">
+                </div>
+                @if($errors->has('photo'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('photo') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.gallery.fields.photo_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-danger" type="submit">
+                    {{ trans('global.save') }}
+                </button>
+            </div>
+        </form>
     </div>
 </div>
+
+
+
 @endsection
 
 @section('scripts')
