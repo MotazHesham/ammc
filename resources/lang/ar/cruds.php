@@ -72,7 +72,7 @@ return [
             'id'                 => 'ID',
             'id_helper'          => ' ',
             'photo'              => 'الصورة',
-            'photo_helper'       => ' ',
+            'photo_helper'       => '1600 x 830',
             'description'        => 'نبذة مختصرة',
             'description_helper' => ' ',
             'created_at'         => 'Created at',
