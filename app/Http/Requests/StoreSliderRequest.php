@@ -21,10 +21,6 @@ class StoreSliderRequest extends FormRequest
                 'string',
                 'nullable',
             ],
-            'description' => [
-                'string',
-                'nullable',
-            ],
             'photo' => [
                 'required',
             ],

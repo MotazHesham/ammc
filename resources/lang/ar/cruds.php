@@ -73,8 +73,6 @@ return [
             'id_helper'          => ' ',
             'photo'              => 'الصورة',
             'photo_helper'       => '1600 x 830',
-            'description'        => 'نبذة مختصرة',
-            'description_helper' => ' ',
             'created_at'         => 'Created at',
             'created_at_helper'  => ' ',
             'updated_at'         => 'Updated at',
@@ -85,6 +83,8 @@ return [
             'title_helper'       => ' ',
             'status'             => 'الحالة',
             'status_helper'      => ' ',
+            'description'        => 'نبذة مختصرة',
+            'description_helper' => ' ',
         ],
     ],
     'service' => [
