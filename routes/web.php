@@ -45,6 +45,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Founder Info
     Route::delete('founder-infos/destroy', 'FounderInfoController@massDestroy')->name('founder-infos.massDestroy');
+    Route::post('founder-infos/media', 'FounderInfoController@storeMedia')->name('founder-infos.storeMedia');
+    Route::post('founder-infos/ckmedia', 'FounderInfoController@storeCKEditorImages')->name('founder-infos.storeCKEditorImages');
     Route::resource('founder-infos', 'FounderInfoController');
 
     // Founder Description

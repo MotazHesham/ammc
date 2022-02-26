@@ -37,6 +37,9 @@ class StoreFounderInfoRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'photo' => [
+                'required',
+            ],
         ];
     }
 }

@@ -37,6 +37,9 @@ class UpdateFounderInfoRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'photo' => [
+                'required',
+            ],
         ];
     }
 }
