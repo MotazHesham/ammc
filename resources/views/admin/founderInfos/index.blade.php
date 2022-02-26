@@ -41,6 +41,9 @@
                             {{ trans('cruds.founderInfo.fields.address') }}
                         </th>
                         <th>
+                            {{ trans('cruds.founderInfo.fields.photo') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -68,6 +71,13 @@
                             </td>
                             <td>
                                 {{ $founderInfo->address ?? '' }}
+                            </td>
+                            <td>
+                                @if($founderInfo->photo)
+                                    <a href="{{ $founderInfo->photo->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $founderInfo->photo->getUrl('thumb') }}">
+                                    </a>
+                                @endif
                             </td>
                             <td>
                                 @can('founder_info_show')
