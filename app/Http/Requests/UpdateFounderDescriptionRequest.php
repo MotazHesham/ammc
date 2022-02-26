@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Models\FounderDescription;
+use Gate;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Response;
+
+class UpdateFounderDescriptionRequest extends FormRequest
+{
+    public function authorize()
+    {
+        return Gate::allows('founder_description_edit');
+    }
+
+    public function rules()
+    {
+        return [
+            'title' => [
+                'string',
+                'required',
+            ],
+            'description' => [
+                'required',
+            ],
+        ];
+    }
+}
