@@ -1,100 +1,95 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
-    @can('contact_us_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.contactuses.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.contactUs.title_singular') }}
-                </a>
-            </div>
-        </div>
-    @endcan
-    <div class="row">
+@can('contact_us_create')
+    <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('cruds.contactUs.title_singular') }} {{ trans('global.list') }}
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-ContactUs">
-                            <thead>
-                                <tr>
-                                    <th width="10">
+            <a class="btn btn-success" href="{{ route('admin.contactuses.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.contactUs.title_singular') }}
+            </a>
+        </div>
+    </div>
+@endcan
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.contactUs.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.contactUs.fields.id') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.contactUs.fields.name') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.contactUs.fields.email') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.contactUs.fields.message') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($contactuses as $key => $contactUs)
-                                    <tr data-entry-id="{{ $contactUs->id }}">
-                                        <td>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-ContactUs">
+                <thead>
+                    <tr>
+                        <th width="10">
 
-                                        </td>
-                                        <td>
-                                            {{ $contactUs->id ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $contactUs->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $contactUs->email ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $contactUs->message ?? '' }}
-                                        </td>
-                                        <td>
-                                            @can('contact_us_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.contactuses.show', $contactUs->id) }}">
-                                                    {{ trans('global.view') }}
-                                                </a>
-                                            @endcan
+                        </th>
+                        <th>
+                            {{ trans('cruds.contactUs.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.contactUs.fields.name') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.contactUs.fields.email') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.contactUs.fields.message') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($contactuses as $key => $contactUs)
+                        <tr data-entry-id="{{ $contactUs->id }}">
+                            <td>
 
-                                            @can('contact_us_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('admin.contactuses.edit', $contactUs->id) }}">
-                                                    {{ trans('global.edit') }}
-                                                </a>
-                                            @endcan
+                            </td>
+                            <td>
+                                {{ $contactUs->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $contactUs->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $contactUs->email ?? '' }}
+                            </td>
+                            <td>
+                                {{ $contactUs->message ?? '' }}
+                            </td>
+                            <td>
+                                @can('contact_us_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.contactuses.show', $contactUs->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
 
-                                            @can('contact_us_delete')
-                                                <form action="{{ route('admin.contactuses.destroy', $contactUs->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                                </form>
-                                            @endcan
+                                @can('contact_us_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.contactuses.edit', $contactUs->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
 
-                                        </td>
+                                @can('contact_us_delete')
+                                    <form action="{{ route('admin.contactuses.destroy', $contactUs->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                            </td>
 
-
-
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+
+
 @endsection
 @section('scripts')
 @parent

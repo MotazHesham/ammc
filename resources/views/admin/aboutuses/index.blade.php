@@ -1,222 +1,217 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
-    @can('about_us_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.aboutuses.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.aboutUs.title_singular') }}
-                </a>
-            </div>
-        </div>
-    @endcan
-    <div class="row">
+@can('about_us_create')
+    <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('cruds.aboutUs.title_singular') }} {{ trans('global.list') }}
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-AboutUs">
-                            <thead>
-                                <tr>
-                                    <th width="10">
+            <a class="btn btn-success" href="{{ route('admin.aboutuses.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.aboutUs.title_singular') }}
+            </a>
+        </div>
+    </div>
+@endcan
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.aboutUs.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.id') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.about_us_1') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.about_us_2') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.about_us_3') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.about_us_photo') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.description') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.client_text') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.success_text') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.task_text') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.email_1') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.phone_1') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.phone_2') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.address') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.time') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.facebook') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.twitter') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.instegram') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.youtube') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.linkedin') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.latitude') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.longitude') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.manager_name') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.aboutUs.fields.manager_photo') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($aboutuses as $key => $aboutUs)
-                                    <tr data-entry-id="{{ $aboutUs->id }}">
-                                        <td>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-AboutUs">
+                <thead>
+                    <tr>
+                        <th width="10">
 
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->id ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->about_us_1 ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->about_us_2 ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->about_us_3 ?? '' }}
-                                        </td>
-                                        <td>
-                                            @if($aboutUs->about_us_photo)
-                                                <a href="{{ $aboutUs->about_us_photo->getUrl() }}" target="_blank" style="display: inline-block">
-                                                    <img src="{{ $aboutUs->about_us_photo->getUrl('thumb') }}">
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->description ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->client_text ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->success_text ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->task_text ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->email_1 ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->phone_1 ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->phone_2 ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->address ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->time ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->facebook ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->twitter ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->instegram ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->youtube ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->linkedin ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->latitude ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->longitude ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $aboutUs->manager_name ?? '' }}
-                                        </td>
-                                        <td>
-                                            @if($aboutUs->manager_photo)
-                                                <a href="{{ $aboutUs->manager_photo->getUrl() }}" target="_blank" style="display: inline-block">
-                                                    <img src="{{ $aboutUs->manager_photo->getUrl('thumb') }}">
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @can('about_us_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.aboutuses.show', $aboutUs->id) }}">
-                                                    {{ trans('global.view') }}
-                                                </a>
-                                            @endcan
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.about_us_1') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.about_us_2') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.about_us_3') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.about_us_photo') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.description') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.client_text') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.success_text') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.task_text') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.email_1') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.phone_1') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.phone_2') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.address') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.time') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.facebook') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.twitter') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.instegram') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.youtube') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.linkedin') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.latitude') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.longitude') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.manager_name') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.aboutUs.fields.manager_photo') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($aboutuses as $key => $aboutUs)
+                        <tr data-entry-id="{{ $aboutUs->id }}">
+                            <td>
 
-                                            @can('about_us_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('admin.aboutuses.edit', $aboutUs->id) }}">
-                                                    {{ trans('global.edit') }}
-                                                </a>
-                                            @endcan
+                            </td>
+                            <td>
+                                {{ $aboutUs->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->about_us_1 ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->about_us_2 ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->about_us_3 ?? '' }}
+                            </td>
+                            <td>
+                                @if($aboutUs->about_us_photo)
+                                    <a href="{{ $aboutUs->about_us_photo->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $aboutUs->about_us_photo->getUrl('thumb') }}">
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
+                                {{ $aboutUs->description ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->client_text ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->success_text ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->task_text ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->email_1 ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->phone_1 ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->phone_2 ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->address ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->time ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->facebook ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->twitter ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->instegram ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->youtube ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->linkedin ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->latitude ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->longitude ?? '' }}
+                            </td>
+                            <td>
+                                {{ $aboutUs->manager_name ?? '' }}
+                            </td>
+                            <td>
+                                @if($aboutUs->manager_photo)
+                                    <a href="{{ $aboutUs->manager_photo->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $aboutUs->manager_photo->getUrl('thumb') }}">
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
+                                @can('about_us_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.aboutuses.show', $aboutUs->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
 
-                                            @can('about_us_delete')
-                                                <form action="{{ route('admin.aboutuses.destroy', $aboutUs->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                                </form>
-                                            @endcan
+                                @can('about_us_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.aboutuses.edit', $aboutUs->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
 
-                                        </td>
+                                @can('about_us_delete')
+                                    <form action="{{ route('admin.aboutuses.destroy', $aboutUs->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                            </td>
 
-
-
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+
+
 @endsection
 @section('scripts')
 @parent

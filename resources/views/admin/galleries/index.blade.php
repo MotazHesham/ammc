@@ -1,88 +1,83 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
-    @can('gallery_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.galleries.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.gallery.title_singular') }}
-                </a>
-            </div>
-        </div>
-    @endcan
-    <div class="row">
+@can('gallery_create')
+    <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('cruds.gallery.title_singular') }} {{ trans('global.list') }}
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-Gallery">
-                            <thead>
-                                <tr>
-                                    <th width="10">
+            <a class="btn btn-success" href="{{ route('admin.galleries.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.gallery.title_singular') }}
+            </a>
+        </div>
+    </div>
+@endcan
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.gallery.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.gallery.fields.id') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.gallery.fields.title') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($galleries as $key => $gallery)
-                                    <tr data-entry-id="{{ $gallery->id }}">
-                                        <td>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-Gallery">
+                <thead>
+                    <tr>
+                        <th width="10">
 
-                                        </td>
-                                        <td>
-                                            {{ $gallery->id ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $gallery->title ?? '' }}
-                                        </td>
-                                        <td>
-                                            @can('gallery_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.galleries.show', $gallery->id) }}">
-                                                    {{ trans('global.view') }}
-                                                </a>
-                                            @endcan
+                        </th>
+                        <th>
+                            {{ trans('cruds.gallery.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.gallery.fields.title') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($galleries as $key => $gallery)
+                        <tr data-entry-id="{{ $gallery->id }}">
+                            <td>
 
-                                            @can('gallery_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('admin.galleries.edit', $gallery->id) }}">
-                                                    {{ trans('global.edit') }}
-                                                </a>
-                                            @endcan
+                            </td>
+                            <td>
+                                {{ $gallery->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $gallery->title ?? '' }}
+                            </td>
+                            <td>
+                                @can('gallery_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.galleries.show', $gallery->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
 
-                                            @can('gallery_delete')
-                                                <form action="{{ route('admin.galleries.destroy', $gallery->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                                </form>
-                                            @endcan
+                                @can('gallery_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.galleries.edit', $gallery->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
 
-                                        </td>
+                                @can('gallery_delete')
+                                    <form action="{{ route('admin.galleries.destroy', $gallery->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                            </td>
 
-
-
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+
+
 @endsection
 @section('scripts')
 @parent

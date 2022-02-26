@@ -1,94 +1,89 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
-    @can('founder_description_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.founder-descriptions.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.founderDescription.title_singular') }}
-                </a>
-            </div>
-        </div>
-    @endcan
-    <div class="row">
+@can('founder_description_create')
+    <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('cruds.founderDescription.title_singular') }} {{ trans('global.list') }}
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-FounderDescription">
-                            <thead>
-                                <tr>
-                                    <th width="10">
+            <a class="btn btn-success" href="{{ route('admin.founder-descriptions.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.founderDescription.title_singular') }}
+            </a>
+        </div>
+    </div>
+@endcan
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.founderDescription.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.founderDescription.fields.id') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.founderDescription.fields.title') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.founderDescription.fields.description') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($founderDescriptions as $key => $founderDescription)
-                                    <tr data-entry-id="{{ $founderDescription->id }}">
-                                        <td>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-FounderDescription">
+                <thead>
+                    <tr>
+                        <th width="10">
 
-                                        </td>
-                                        <td>
-                                            {{ $founderDescription->id ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $founderDescription->title ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $founderDescription->description ?? '' }}
-                                        </td>
-                                        <td>
-                                            @can('founder_description_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.founder-descriptions.show', $founderDescription->id) }}">
-                                                    {{ trans('global.view') }}
-                                                </a>
-                                            @endcan
+                        </th>
+                        <th>
+                            {{ trans('cruds.founderDescription.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.founderDescription.fields.title') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.founderDescription.fields.description') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($founderDescriptions as $key => $founderDescription)
+                        <tr data-entry-id="{{ $founderDescription->id }}">
+                            <td>
 
-                                            @can('founder_description_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('admin.founder-descriptions.edit', $founderDescription->id) }}">
-                                                    {{ trans('global.edit') }}
-                                                </a>
-                                            @endcan
+                            </td>
+                            <td>
+                                {{ $founderDescription->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $founderDescription->title ?? '' }}
+                            </td>
+                            <td>
+                                {{ $founderDescription->description ?? '' }}
+                            </td>
+                            <td>
+                                @can('founder_description_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.founder-descriptions.show', $founderDescription->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
 
-                                            @can('founder_description_delete')
-                                                <form action="{{ route('admin.founder-descriptions.destroy', $founderDescription->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                                </form>
-                                            @endcan
+                                @can('founder_description_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.founder-descriptions.edit', $founderDescription->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
 
-                                        </td>
+                                @can('founder_description_delete')
+                                    <form action="{{ route('admin.founder-descriptions.destroy', $founderDescription->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                            </td>
 
-
-
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+
+
 @endsection
 @section('scripts')
 @parent

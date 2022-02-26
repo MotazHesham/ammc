@@ -1,112 +1,107 @@
 @extends('layouts.admin')
 @section('content')
-<div class="content">
-    @can('founder_info_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.founder-infos.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.founderInfo.title_singular') }}
-                </a>
-            </div>
-        </div>
-    @endcan
-    <div class="row">
+@can('founder_info_create')
+    <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    {{ trans('cruds.founderInfo.title_singular') }} {{ trans('global.list') }}
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-FounderInfo">
-                            <thead>
-                                <tr>
-                                    <th width="10">
+            <a class="btn btn-success" href="{{ route('admin.founder-infos.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.founderInfo.title_singular') }}
+            </a>
+        </div>
+    </div>
+@endcan
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.founderInfo.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.founderInfo.fields.id') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.founderInfo.fields.title_1') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.founderInfo.fields.title_2') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.founderInfo.fields.national') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.founderInfo.fields.dob') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.founderInfo.fields.address') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($founderInfos as $key => $founderInfo)
-                                    <tr data-entry-id="{{ $founderInfo->id }}">
-                                        <td>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-FounderInfo">
+                <thead>
+                    <tr>
+                        <th width="10">
 
-                                        </td>
-                                        <td>
-                                            {{ $founderInfo->id ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $founderInfo->title_1 ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $founderInfo->title_2 ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $founderInfo->national ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $founderInfo->dob ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $founderInfo->address ?? '' }}
-                                        </td>
-                                        <td>
-                                            @can('founder_info_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.founder-infos.show', $founderInfo->id) }}">
-                                                    {{ trans('global.view') }}
-                                                </a>
-                                            @endcan
+                        </th>
+                        <th>
+                            {{ trans('cruds.founderInfo.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.founderInfo.fields.title_1') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.founderInfo.fields.title_2') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.founderInfo.fields.national') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.founderInfo.fields.dob') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.founderInfo.fields.address') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($founderInfos as $key => $founderInfo)
+                        <tr data-entry-id="{{ $founderInfo->id }}">
+                            <td>
 
-                                            @can('founder_info_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('admin.founder-infos.edit', $founderInfo->id) }}">
-                                                    {{ trans('global.edit') }}
-                                                </a>
-                                            @endcan
+                            </td>
+                            <td>
+                                {{ $founderInfo->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $founderInfo->title_1 ?? '' }}
+                            </td>
+                            <td>
+                                {{ $founderInfo->title_2 ?? '' }}
+                            </td>
+                            <td>
+                                {{ $founderInfo->national ?? '' }}
+                            </td>
+                            <td>
+                                {{ $founderInfo->dob ?? '' }}
+                            </td>
+                            <td>
+                                {{ $founderInfo->address ?? '' }}
+                            </td>
+                            <td>
+                                @can('founder_info_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.founder-infos.show', $founderInfo->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
 
-                                            @can('founder_info_delete')
-                                                <form action="{{ route('admin.founder-infos.destroy', $founderInfo->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                                </form>
-                                            @endcan
+                                @can('founder_info_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.founder-infos.edit', $founderInfo->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
 
-                                        </td>
+                                @can('founder_info_delete')
+                                    <form action="{{ route('admin.founder-infos.destroy', $founderInfo->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                            </td>
 
-
-
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+
+
 @endsection
 @section('scripts')
 @parent
